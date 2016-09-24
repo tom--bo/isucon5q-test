@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/context"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
+	"github.com/sonots/go-sql_metrics"
 	"html/template"
 	"log"
 	"net/http"
@@ -19,7 +20,7 @@ import (
 )
 
 var (
-	db    *sql.DB
+	db    *sql_metrics.DB
 	store *sessions.CookieStore
 )
 
@@ -745,7 +746,10 @@ func main() {
 		ssecret = "beermoris"
 	}
 
-	db, err = sql.Open("mysql", "isucon:isucon@tcp("+host+":"+strconv.Itoa(port)+")/"+dbname+"?loc=Local&parseTime=true")
+	_db, err := sql.Open("mysql", "isucon:isucon@tcp("+host+":"+strconv.Itoa(port)+")/"+dbname+"?loc=Local&parseTime=true")
+	db = sql_metrics.WrapDB("isucon5q", _db)
+	sql_metrics.Verbose = true
+	sql_metrics.Print(10)
 	if err != nil {
 		log.Fatalf("Failed to connect to DB: %s.", err.Error())
 	}
