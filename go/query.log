@@ -1,0 +1,29 @@
+82.723533	163	0.507506	SELECT * FROM relations WHERE one = ? OR another = ? ORDER BY created_at DESC
+56.001861	120	0.466682	SELECT user_id, owner_id, DATE(created_at) AS date, MAX(created_at) AS updated FROM footprints WHERE user_id = ? GROUP BY user_id, owner_id, DATE(created_at) ORDER BY updated DESC LIMIT 10
+12.775237	33	0.387128	SELECT user_id, owner_id, DATE(created_at) AS date, MAX(created_at) as updated FROM footprints WHERE user_id = ? GROUP BY user_id, owner_id, DATE(created_at) ORDER BY updated DESC LIMIT 50
+11.949278	120	0.099577	SELECT c.id AS id, c.entry_id AS entry_id, c.user_id AS user_id, c.comment AS comment, c.created_at AS created_at FROM comments c JOIN entries e ON c.entry_id = e.id WHERE e.user_id = ? ORDER BY c.created_at DESC LIMIT 10
+1.865916	154	0.012116	INSERT INTO footprints (user_id,owner_id) VALUES (?,?)
+1.094436	1524	0.001065	SELECT * FROM entries WHERE id = ?
+1.079784	1200	0.001050	SELECT * FROM entries WHERE id=?
+0.878299	2000	0.000854	SELECT COUNT(*) AS c FROM comments WHERE entry_id = ?
+0.813168	135340	0.000791	SELECT COUNT(1) AS cnt FROM relations WHERE (one = ? AND another = ?) OR (one = ? AND another = ?)
+0.766332	12142	0.000745	SELECT * FROM users WHERE id = ?
+0.461151	559	0.000825	SELECT id, account_name, nick_name, email FROM users WHERE id=?
+0.441535	120	0.003679	SELECT * FROM entries ORDER BY created_at DESC LIMIT 1000
+0.266624	36	0.007406	INSERT INTO comments (entry_id, user_id, comment) VALUES (?,?,?)
+0.227369	31	0.007334	INSERT INTO entries (user_id, private, body) VALUES (?,?,?)
+0.224619	157	0.001431	SELECT * FROM entries WHERE user_id = ? ORDER BY created_at LIMIT 5
+0.205889	120	0.001716	SELECT * FROM comments ORDER BY created_at DESC LIMIT 1000
+0.171897	213	0.000807	SELECT * FROM profiles WHERE user_id = ?
+0.157487	201	0.000784	SELECT * FROM users WHERE account_name = ?
+0.112713	56	0.002013	SELECT * FROM entries WHERE user_id = ? AND private=0 ORDER BY created_at LIMIT 5
+0.090362	69	0.001310	SELECT * FROM entries WHERE user_id = ? ORDER BY created_at DESC LIMIT 20
+0.071714	31	0.002313	SELECT * FROM entries WHERE user_id = ? AND private=0 ORDER BY created_at DESC LIMIT 20
+0.062115	97	0.000640	SELECT * FROM comments WHERE entry_id = ?
+0.060235	51	0.001181	SELECT u.id AS id, u.account_name AS account_name, u.nick_name AS nick_name, u.email AS email FROM users u JOIN salts s ON u.id = s.user_id WHERE u.email = ? AND u.passhash = SHA2(CONCAT(?, s.salt), 512)
+0.034953	4	0.008738	INSERT INTO relations (one, another) VALUES (?,?), (?,?)
+0.009780	1	0.009780	DELETE FROM relations WHERE id > 500000
+0.007631	1	0.007631	DELETE FROM entries WHERE id > 500000
+0.006934	1	0.006934	DELETE FROM footprints WHERE id > 500000
+0.006343	1	0.006343	DELETE FROM comments WHERE id > 1500000
+0.005518	1	0.005518	UPDATE profiles SET first_name=?, last_name=?, sex=?, birthday=?, pref=?, updated_at=CURRENT_TIMESTAMP() WHERE user_id = ?
